@@ -45,19 +45,14 @@ def show_stations():
     station_info = 'http://' + domain_name + path_name
     url = sys.argv[0] + '?' + urllib.urlencode( { 'mode': 'streams', 'station': station_info } )
 
-    li = xbmcgui.ListItem( label = station_name )
+    li = xbmcgui.ListItem(label = station_name)
     ok = xbmcplugin.addDirectoryItem(handle, url, listitem = li, isFolder = True)
 
   response.close
   xbmcplugin.endOfDirectory(handle = handle, succeeded = True)
 
-def get_struct_text(response):
-  name_len = struct.unpack('<H', response.read(2))
-  name = struct.unpack("<%ds" % name_len, response.read(name_len[0]))
-  return name[0]
-
+# get the streams associated with a specific station
 def get_station_info(station):
-
   response = urllib.urlopen(station + 'getstationinfo/')
   pack_len, pack_type, prot_ver = struct.unpack('<HBB', response.read(4))
   station_name = get_struct_text(response)
@@ -66,9 +61,9 @@ def get_station_info(station):
   if prot_ver > 4:
     station_website = get_struct_text(response)
 
-  num_streams = struct.unpack('<L', response.read(4))
+  num_streams, = struct.unpack('<L', response.read(4))
 
-  for i in range(0, num_streams[0]):
+  for i in range(0, num_streams):
     pack_len, pack_type = struct.unpack('<HB', response.read(3))
     stream_id, stream_date, stream_len, stream_size, stream_fmt, stream_crc, stream_has_chat, stream_chat_crc \
       = struct.unpack('<LLLLBLBL', response.read(26))
@@ -94,13 +89,14 @@ def get_station_info(station):
   xbmcplugin.addSortMethod(handle, xbmcplugin.SORT_METHOD_DATE)
   xbmcplugin.endOfDirectory(handle, succeeded = True)
 
+# get the information for individual parts of a stream
 def get_stream_info(station, station_name, stream_id, stream_name, stream_size, stream_len ):
 
   response = urllib.urlopen(station + 'getstreaminfo/?streamid=%d' % stream_id )
   pack_len, pack_type, prot_ver = struct.unpack('<HBB', response.read(4))
-  num_tracks = struct.unpack('<L', response.read(4))
+  num_tracks, = struct.unpack('<L', response.read(4))
 
-  for i in range(0, num_tracks[0]):
+  for i in range(0, num_tracks):
     pack_len, pack_type = struct.unpack('<HB', response.read(3))
     track_offset, track_id, track_type, track_has_info = struct.unpack('<LLBB', response.read(10))
     artist_name = get_struct_text(response)
@@ -119,6 +115,12 @@ def get_stream_info(station, station_name, stream_id, stream_name, stream_size, 
 
   response.close
   xbmcplugin.endOfDirectory(handle, succeeded = True)
+
+# get a string from the API in the format length of text (word), text
+def get_struct_text(response):
+  name_len = struct.unpack('<H', response.read(2))
+  name, = struct.unpack("<%ds" % name_len, response.read(name_len[0]))
+  return name
 
 def play_stream(url, title, info):
   listitem = xbmcgui.ListItem(title)
