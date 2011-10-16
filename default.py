@@ -6,7 +6,7 @@ import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 __plugin__     = "reLive"
 __author__     = 'BuZz [buzz@exotica.org.uk] / http://www.exotica.org.uk'
 __svn_url__    = "http://xbmc-addons.googlecode.com/svn/trunk/plugins/music/relive"
-__version__    = "0.7"
+__version__    = "0.8"
 
 __settings__ = xbmcaddon.Addon('plugin.audio.relive')
 __language__ = __settings__.getLocalizedString

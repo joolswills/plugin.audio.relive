@@ -1,5 +1,9 @@
 Changes
 
+0.8
+
+  * eden version
+
 0.7
 
   * localise strings
