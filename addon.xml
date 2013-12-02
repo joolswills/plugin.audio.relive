@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.audio.relive"
-  version="0.9"
+  version="0.10.0"
   name="reLive"
-  provider-name="BuZz [buzz@exotica.org.uk]">
+  provider-name="BuZz">
   <requires>
     <import addon="xbmc.python" version="2.1.0"/>
   </requires>
