@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <addon
   id="plugin.audio.relive"
-  version="0.10.0"
+  version="0.10.1"
   name="reLive"
   provider-name="BuZz">
   <requires>

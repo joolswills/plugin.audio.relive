@@ -1,5 +1,9 @@
 Changes
 
+0.10.1
+
+  * do not specify player - not needed now that reLive uses audio/mpeg content type
+
 0.10.0
 
   * 3 part version number

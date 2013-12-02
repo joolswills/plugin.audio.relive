@@ -3,7 +3,7 @@ import urllib, cgi, struct, time
 import xbmc, xbmcgui, xbmcplugin, xbmcaddon
 
 # plugin constants
-__version__    = "0.10.0"
+__version__    = "0.10.1"
 
 __settings__ = xbmcaddon.Addon('plugin.audio.relive')
 __language__ = __settings__.getLocalizedString
@@ -125,7 +125,7 @@ def play_stream(url, title, info):
   url += '|User-Agent=' + __user_agent__ 
   listitem = xbmcgui.ListItem(title)
   listitem.setInfo ( 'music', info )
-  player = xbmc.Player(xbmc.PLAYER_CORE_DVDPLAYER)
+  player = xbmc.Player()
   player.play(url, listitem)
 
 params = get_params( { 'mode': 'stations', 'station': '' } )
