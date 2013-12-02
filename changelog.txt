@@ -1,5 +1,11 @@
 Changes
 
+0.10.0
+
+  * 3 part version number
+  * Cleanups
+  * XBMC / Python API compatibility changes
+
 0.8
 
   * eden version
