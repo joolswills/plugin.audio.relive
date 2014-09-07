@@ -122,10 +122,9 @@ def get_struct_text(response):
   return name
 
 def play_stream(url, title, info):
-  url += '|User-Agent=' + __user_agent__ 
   listitem = xbmcgui.ListItem(title)
   listitem.setInfo ( 'music', info )
-  player = xbmc.Player()
+  player = xbmc.Player(xbmc.PLAYER_CORE_MPLAYER)
   player.play(url, listitem)
 
 params = get_params( { 'mode': 'stations', 'station': '' } )
